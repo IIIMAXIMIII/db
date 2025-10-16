@@ -1,3 +1,4 @@
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ namespace Game.Domain
 {
     public class GameEntity
     {
+        [BsonElement]
         private readonly List<Player> players;
 
         public GameEntity(int turnsCount)
@@ -13,6 +15,7 @@ namespace Game.Domain
         {
         }
 
+        [BsonConstructor]
         public GameEntity(Guid id, GameStatus status, int turnsCount, int currentTurnIndex, List<Player> players)
         {
             Id = id;
