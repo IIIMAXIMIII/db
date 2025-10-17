@@ -79,6 +79,7 @@ namespace Game.Domain
         public GameTurnEntity FinishTurn()
         {
             var winnerId = Guid.Empty;
+            var winnerName = "";
             for (int i = 0; i < 2; i++)
             {
                 var player = Players[i];
@@ -89,10 +90,11 @@ namespace Game.Domain
                 {
                     player.Score++;
                     winnerId = player.UserId;
+                    winnerName = player.Name;
                 }
             }
             //TODO Заполнить все внутри GameTurnEntity, в том числе winnerId
-            var result = new GameTurnEntity();
+            var result = new GameTurnEntity(Id, Players.Select(p => new PlayerTurn(p)).ToList(), winnerId, winnerName);
             // Это должно быть после создания GameTurnEntity
             foreach (var player in Players)
                 player.Decision = null;
